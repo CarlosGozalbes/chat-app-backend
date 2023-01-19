@@ -4,14 +4,20 @@ import express from "express";
 import databaseConnect from "../config/database.js";
 import dotenv from "dotenv";
 import listEndpoints from "express-list-endpoints";
-import authRouter from "./routes/authRoute.js";
+import router from "./routes/authRoute.js";
+import bodyParser from "body-parser";
+import cookieParser from "cookie-parser"
+
 
 const app = express();
 
 /* dotenv.congif({
     path : '../config/config.env'
 }) */
-app.use("/api/messenger", authRouter);
+
+app.use(bodyParser.json());
+app.use(cookieParser());
+app.use("/api/messenger", router);
 const PORT = process.env.PORT || 5000;
 //app.use(cors());
 
