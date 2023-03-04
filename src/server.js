@@ -1,25 +1,31 @@
-import mongoose from "mongoose";
-import cors from "cors";
-import express from "express";
-import databaseConnect from "../config/database.js";
-import dotenv from "dotenv";
-import listEndpoints from "express-list-endpoints";
-import router from "./routes/authRoute.js";
-import bodyParser from "body-parser";
-import cookieParser from "cookie-parser"
 
+const cors = require("cors")
+const mongoose = require("mongoose")
 
+const dotenv = require("dotenv");
+const listEndpoints = require("express-list-endpoints");
+
+const express = require("express");
 const app = express();
+
+
+const databaseConnect = require("./../config/database");
+const authRouter = require("./routes/authRoute");
+const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
+//const messengerRoute = require("./routes/messengerRoute");
+
+
 
 /* dotenv.congif({
     path : '../config/config.env'
 }) */
-
+app.use(cors());
 app.use(bodyParser.json());
 app.use(cookieParser());
-app.use("/api/messenger", router);
+app.use("/api/messenger", authRouter);
 const PORT = process.env.PORT || 5000;
-//app.use(cors());
+
 
 databaseConnect();
 
